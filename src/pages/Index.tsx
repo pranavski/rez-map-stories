@@ -23,13 +23,13 @@ const Index = () => {
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      <header className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-background/95 to-transparent p-6 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-2">
+      <header className="absolute top-0 left-0 right-0 z-20 p-6">
+        <div className="max-w-7xl">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2" style={{ fontFamily: 'Georgia, serif', color: '#7C3AED' }}>
             Indigenous Representation in Film
           </h1>
-          <p className="text-muted-foreground max-w-3xl">
-            An interactive exploration of Indigenous cinema, connecting films with their territories, 
+          <p className="max-w-3xl" style={{ fontFamily: 'Georgia, serif', color: '#8B5CF6' }}>
+            An interactive exploration of Indigenous cinema, connecting films with their territories,
             themes, and critical scholarship on settler colonialism, gender, and decolonization.
           </p>
         </div>
