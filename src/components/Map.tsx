@@ -69,8 +69,8 @@ const Map = ({ onLocationClick }: MapProps) => {
   }, [onLocationClick]);
 
   return (
-    <div className="relative w-full h-full">
-      <div ref={mapContainer} className="absolute inset-0" />
+    <div className="relative w-full h-full z-0">
+      <div ref={mapContainer} className="absolute inset-0 z-0" />
       <style>{`
         .custom-marker {
           background: transparent;
@@ -92,6 +92,11 @@ const Map = ({ onLocationClick }: MapProps) => {
         }
         .leaflet-container {
           background: hsl(35 30% 90%);
+          z-index: 1 !important;
+        }
+        .leaflet-pane,
+        .leaflet-control-container {
+          z-index: 1 !important;
         }
       `}</style>
     </div>
