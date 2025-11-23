@@ -14,16 +14,140 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      film_submissions: {
+        Row: {
+          available_on: string | null
+          directors: string[] | null
+          id: string
+          illumination: string
+          key_issues: string[]
+          location_lat: number
+          location_lng: number
+          location_name: string
+          location_nation: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          submitted_at: string | null
+          submitted_by: string | null
+          synopsis: string
+          themes: string[]
+          title: string
+          year: number | null
+        }
+        Insert: {
+          available_on?: string | null
+          directors?: string[] | null
+          id?: string
+          illumination: string
+          key_issues?: string[]
+          location_lat: number
+          location_lng: number
+          location_name: string
+          location_nation: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          submitted_at?: string | null
+          submitted_by?: string | null
+          synopsis: string
+          themes?: string[]
+          title: string
+          year?: number | null
+        }
+        Update: {
+          available_on?: string | null
+          directors?: string[] | null
+          id?: string
+          illumination?: string
+          key_issues?: string[]
+          location_lat?: number
+          location_lng?: number
+          location_name?: string
+          location_nation?: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          submitted_at?: string | null
+          submitted_by?: string | null
+          synopsis?: string
+          themes?: string[]
+          title?: string
+          year?: number | null
+        }
+        Relationships: []
+      }
+      submission_readings: {
+        Row: {
+          author: string
+          id: string
+          submission_id: string
+          title: string
+          url: string | null
+        }
+        Insert: {
+          author: string
+          id?: string
+          submission_id: string
+          title: string
+          url?: string | null
+        }
+        Update: {
+          author?: string
+          id?: string
+          submission_id?: string
+          title?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "submission_readings_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: false
+            referencedRelation: "film_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +274,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
