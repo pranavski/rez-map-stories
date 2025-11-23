@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import maplibregl from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import { films, Film } from '@/data/films';
 
 interface MapProps {
@@ -9,51 +9,103 @@ interface MapProps {
 
 const Map = ({ onLocationClick }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<L.Map | null>(null);
-  const markers = useRef<L.Marker[]>([]);
+  const map = useRef<maplibregl.Map | null>(null);
+  const markers = useRef<maplibregl.Marker[]>([]);
 
   useEffect(() => {
     if (!mapContainer.current || map.current) return;
 
-    // Initialize the map
-    map.current = L.map(mapContainer.current, {
-      center: [45, -100],
-      zoom: 3,
-      zoomControl: false,
+    // Initialize the map with globe projection
+    map.current = new maplibregl.Map({
+      container: mapContainer.current,
+      style: {
+        version: 8,
+        name: 'Green Globe',
+        sources: {
+          'osm-tiles': {
+            type: 'raster',
+            tiles: [
+              'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+            ],
+            tileSize: 256,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }
+        },
+        layers: [
+          {
+            id: 'background',
+            type: 'background',
+            paint: {
+              'background-color': '#87CEEB' // Sky blue for ocean
+            }
+          },
+          {
+            id: 'osm-tiles-layer',
+            type: 'raster',
+            source: 'osm-tiles',
+            minzoom: 0,
+            maxzoom: 19
+          }
+        ],
+        glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf'
+      },
+      center: [-100, 45],
+      zoom: 2.5,
+      projection: 'globe'
     });
 
-    // Add OpenStreetMap tiles (free, no token required)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      maxZoom: 19,
-    }).addTo(map.current);
+    // Add navigation controls
+    map.current.addControl(
+      new maplibregl.NavigationControl({
+        visualizePitch: true,
+      }),
+      'top-right'
+    );
 
-    // Add zoom control to top-right (like Mapbox had it)
-    L.control.zoom({
-      position: 'topright'
-    }).addTo(map.current);
-
-    // Create custom icon for markers
-    const createCustomIcon = () => {
-      return L.divIcon({
-        className: 'custom-marker',
-        html: `<div class="film-marker-inner"></div>`,
-        iconSize: [32, 32],
-        iconAnchor: [16, 16],
+    // Set atmosphere/fog effect for globe
+    map.current.on('style.load', () => {
+      map.current?.setFog({
+        color: 'rgb(186, 210, 235)', // Light blue atmosphere
+        'high-color': 'rgb(36, 92, 223)', // Upper atmosphere
+        'horizon-blend': 0.02,
+        'space-color': 'rgb(11, 11, 25)', // Dark space
+        'star-intensity': 0.6
       });
-    };
+    });
 
     // Add markers for each film
     films.forEach((film) => {
-      const marker = L.marker([film.location.lat, film.location.lng], {
-        icon: createCustomIcon(),
-      }).addTo(map.current!);
+      const el = document.createElement('div');
+      el.className = 'film-marker';
+      el.style.width = '32px';
+      el.style.height = '32px';
+      el.style.borderRadius = '50%';
+      el.style.background = 'linear-gradient(135deg, hsl(25 75% 47%), hsl(35 60% 60%))';
+      el.style.border = '3px solid white';
+      el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
+      el.style.cursor = 'pointer';
+      el.style.transition = 'box-shadow 0.2s ease, filter 0.2s ease';
 
-      // Add click event
-      marker.on('click', () => {
+      el.addEventListener('mouseenter', () => {
+        el.style.boxShadow = '0 4px 16px rgba(0,0,0,0.4), 0 0 20px rgba(211, 84, 0, 0.6)';
+        el.style.filter = 'brightness(1.2)';
+      });
+
+      el.addEventListener('mouseleave', () => {
+        el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
+        el.style.filter = 'brightness(1)';
+      });
+
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat([film.location.lng, film.location.lat])
+        .addTo(map.current!);
+
+      el.addEventListener('click', () => {
         onLocationClick(film);
-        map.current?.flyTo([film.location.lat, film.location.lng], 6, {
-          duration: 1.5,
+        map.current?.flyTo({
+          center: [film.location.lng, film.location.lat],
+          zoom: 6,
+          duration: 1500
         });
       });
 
@@ -72,30 +124,11 @@ const Map = ({ onLocationClick }: MapProps) => {
     <div className="relative w-full h-full z-0">
       <div ref={mapContainer} className="absolute inset-0 z-0" />
       <style>{`
-        .custom-marker {
-          background: transparent;
-          border: none;
-        }
-        .film-marker-inner {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, hsl(25 75% 47%), hsl(35 60% 60%));
-          border: 3px solid white;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-          cursor: pointer;
-          transition: box-shadow 0.2s ease, filter 0.2s ease;
-        }
-        .film-marker-inner:hover {
-          box-shadow: 0 4px 16px rgba(0,0,0,0.4), 0 0 20px rgba(211, 84, 0, 0.6);
-          filter: brightness(1.2);
-        }
-        .leaflet-container {
-          background: hsl(35 30% 90%);
+        .maplibregl-map {
           z-index: 1 !important;
         }
-        .leaflet-pane,
-        .leaflet-control-container {
+        .maplibregl-canvas-container,
+        .maplibregl-control-container {
           z-index: 1 !important;
         }
       `}</style>
