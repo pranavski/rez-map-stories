@@ -73,14 +73,16 @@ const Map = ({ onLocationClick }: MapProps) => {
         el.style.border = '3px solid white';
         el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
         el.style.cursor = 'pointer';
-        el.style.transition = 'transform 0.2s ease';
+        el.style.transition = 'box-shadow 0.2s ease, filter 0.2s ease';
         
         el.addEventListener('mouseenter', () => {
-          el.style.transform = 'scale(1.2)';
+          el.style.boxShadow = '0 4px 16px rgba(0,0,0,0.4), 0 0 20px rgba(211, 84, 0, 0.6)';
+          el.style.filter = 'brightness(1.2)';
         });
         
         el.addEventListener('mouseleave', () => {
-          el.style.transform = 'scale(1)';
+          el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
+          el.style.filter = 'brightness(1)';
         });
 
         const marker = new mapboxgl.Marker(el)
