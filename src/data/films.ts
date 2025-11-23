@@ -38,11 +38,13 @@ export const films: Film[] = [
     readings: [
       {
         title: "Decolonizing Methodologies: Research and Indigenous Peoples",
-        author: "Linda Tuhiwai Smith"
+        author: "Linda Tuhiwai Smith",
+        url: "https://www.bloomsbury.com/us/decolonizing-methodologies-9781350201224/"
       },
       {
         title: "Settler Colonialism and the Elimination of the Native",
-        author: "Patrick Wolfe"
+        author: "Patrick Wolfe",
+        url: "https://www.jstor.org/stable/10.2979/jsi.2006.8.3.387"
       }
     ],
     year: 2018,
@@ -64,11 +66,13 @@ export const films: Film[] = [
     readings: [
       {
         title: "Navajo Cultural Constructions of Gender and Sexuality",
-        author: "Wesley Thomas"
+        author: "Wesley Thomas",
+        url: "https://www.jstor.org/stable/j.ctt5hjm2q.12"
       },
       {
         title: "Decolonizing Methodologies: Research and Indigenous Peoples",
-        author: "Linda Tuhiwai Smith"
+        author: "Linda Tuhiwai Smith",
+        url: "https://www.bloomsbury.com/us/decolonizing-methodologies-9781350201224/"
       }
     ],
     year: 2014,
@@ -91,11 +95,13 @@ export const films: Film[] = [
     readings: [
       {
         title: "Settler Colonialism and the Elimination of the Native",
-        author: "Patrick Wolfe"
+        author: "Patrick Wolfe",
+        url: "https://www.jstor.org/stable/10.2979/jsi.2006.8.3.387"
       },
       {
         title: "Decolonizing Methodologies: Research and Indigenous Peoples",
-        author: "Linda Tuhiwai Smith"
+        author: "Linda Tuhiwai Smith",
+        url: "https://www.bloomsbury.com/us/decolonizing-methodologies-9781350201224/"
       }
     ],
     year: 2013,
@@ -117,7 +123,8 @@ export const films: Film[] = [
     readings: [
       {
         title: "Decolonizing Methodologies: Research and Indigenous Peoples",
-        author: "Linda Tuhiwai Smith"
+        author: "Linda Tuhiwai Smith",
+        url: "https://www.bloomsbury.com/us/decolonizing-methodologies-9781350201224/"
       }
     ],
     year: 2021,
@@ -140,11 +147,13 @@ export const films: Film[] = [
     readings: [
       {
         title: "Settler Colonialism and the Elimination of the Native",
-        author: "Patrick Wolfe"
+        author: "Patrick Wolfe",
+        url: "https://www.jstor.org/stable/10.2979/jsi.2006.8.3.387"
       },
       {
         title: "Decolonizing Methodologies: Research and Indigenous Peoples",
-        author: "Linda Tuhiwai Smith"
+        author: "Linda Tuhiwai Smith",
+        url: "https://www.bloomsbury.com/us/decolonizing-methodologies-9781350201224/"
       }
     ],
     year: 2021,
@@ -167,11 +176,13 @@ export const films: Film[] = [
     readings: [
       {
         title: "Settler Colonialism and the Elimination of the Native",
-        author: "Patrick Wolfe"
+        author: "Patrick Wolfe",
+        url: "https://www.jstor.org/stable/10.2979/jsi.2006.8.3.387"
       },
       {
         title: "Decolonizing Methodologies: Research and Indigenous Peoples",
-        author: "Linda Tuhiwai Smith"
+        author: "Linda Tuhiwai Smith",
+        url: "https://www.bloomsbury.com/us/decolonizing-methodologies-9781350201224/"
       }
     ],
     year: 2016,
@@ -194,7 +205,8 @@ export const films: Film[] = [
     readings: [
       {
         title: "Decolonizing Methodologies: Research and Indigenous Peoples",
-        author: "Linda Tuhiwai Smith"
+        author: "Linda Tuhiwai Smith",
+        url: "https://www.bloomsbury.com/us/decolonizing-methodologies-9781350201224/"
       }
     ],
     year: 2024,
@@ -217,11 +229,13 @@ export const films: Film[] = [
     readings: [
       {
         title: "Settler Colonialism and the Elimination of the Native",
-        author: "Patrick Wolfe"
+        author: "Patrick Wolfe",
+        url: "https://www.jstor.org/stable/10.2979/jsi.2006.8.3.387"
       },
       {
         title: "Decolonizing Methodologies: Research and Indigenous Peoples",
-        author: "Linda Tuhiwai Smith"
+        author: "Linda Tuhiwai Smith",
+        url: "https://www.bloomsbury.com/us/decolonizing-methodologies-9781350201224/"
       }
     ],
     year: 2016,
