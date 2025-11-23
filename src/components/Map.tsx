@@ -22,29 +22,37 @@ const Map = ({ onLocationClick }: MapProps) => {
         version: 8,
         name: 'Green Globe',
         sources: {
-          'osm-tiles': {
-            type: 'raster',
-            tiles: [
-              'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
-            ],
-            tileSize: 256,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          'land': {
+            type: 'vector',
+            url: 'https://demotiles.maplibre.org/tiles/tiles.json'
           }
         },
         layers: [
           {
-            id: 'background',
+            id: 'ocean',
             type: 'background',
             paint: {
-              'background-color': '#87CEEB' // Sky blue for ocean
+              'background-color': '#6B9BD1' // Ocean blue
             }
           },
           {
-            id: 'osm-tiles-layer',
-            type: 'raster',
-            source: 'osm-tiles',
-            minzoom: 0,
-            maxzoom: 19
+            id: 'land',
+            type: 'fill',
+            source: 'land',
+            'source-layer': 'countries',
+            paint: {
+              'fill-color': '#4A7C4E' // Forest green for land
+            }
+          },
+          {
+            id: 'land-outline',
+            type: 'line',
+            source: 'land',
+            'source-layer': 'countries',
+            paint: {
+              'line-color': '#3D6B40',
+              'line-width': 1
+            }
           }
         ],
         glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf'
