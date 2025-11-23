@@ -23,13 +23,13 @@ const Index = () => {
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
       <header className="absolute top-0 left-0 right-0 z-20 p-6">
         <div className="max-w-7xl">
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-2" style={{ fontFamily: 'Nunito, sans-serif', color: '#8B5CF6' }}>
+          <h1 className="text-3xl md:text-4xl font-semibold mb-2" style={{ fontFamily: 'Poppins, sans-serif', color: '#8B5CF6' }}>
             Indigenous Representation in Film
           </h1>
-          <p className="max-w-3xl text-sm md:text-base" style={{ fontFamily: 'Nunito, sans-serif', color: '#A78BFA' }}>
+          <p className="max-w-3xl text-sm md:text-base" style={{ fontFamily: 'Poppins, sans-serif', color: '#A78BFA' }}>
             An interactive exploration of Indigenous cinema, connecting films with their territories,
             themes, and critical scholarship on settler colonialism, gender, and decolonization.
           </p>
