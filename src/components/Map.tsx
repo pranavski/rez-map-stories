@@ -20,11 +20,19 @@ const Map = ({ onLocationClick }: MapProps) => {
       container: mapContainer.current,
       style: {
         version: 8,
-        name: 'Green Globe',
+        name: 'Indigenous Lands Globe',
         sources: {
           'land': {
             type: 'vector',
             url: 'https://demotiles.maplibre.org/tiles/tiles.json'
+          },
+          'native-land-territories': {
+            type: 'raster',
+            tiles: [
+              'https://tiles.native-land.ca/tiles/territories/{z}/{x}/{y}.png'
+            ],
+            tileSize: 256,
+            attribution: '&copy; <a href="https://native-land.ca">Native Land Digital</a>'
           }
         },
         layers: [
@@ -32,7 +40,7 @@ const Map = ({ onLocationClick }: MapProps) => {
             id: 'ocean',
             type: 'background',
             paint: {
-              'background-color': '#6B9BD1' // Ocean blue
+              'background-color': '#87CEEB' // Light sky blue ocean
             }
           },
           {
@@ -41,7 +49,7 @@ const Map = ({ onLocationClick }: MapProps) => {
             source: 'land',
             'source-layer': 'countries',
             paint: {
-              'fill-color': '#4A7C4E' // Forest green for land
+              'fill-color': '#98D4A1' // Light mint green for land
             }
           },
           {
@@ -50,8 +58,16 @@ const Map = ({ onLocationClick }: MapProps) => {
             source: 'land',
             'source-layer': 'countries',
             paint: {
-              'line-color': '#3D6B40',
+              'line-color': '#7BC47F',
               'line-width': 1
+            }
+          },
+          {
+            id: 'native-land-layer',
+            type: 'raster',
+            source: 'native-land-territories',
+            paint: {
+              'raster-opacity': 0.7
             }
           }
         ],
@@ -81,6 +97,37 @@ const Map = ({ onLocationClick }: MapProps) => {
       });
     });
 
+    // Add click handler for native land territories
+    map.current.on('click', async (e) => {
+      const { lng, lat } = e.lngLat;
+
+      try {
+        const response = await fetch(
+          `https://native-land.ca/api/index.php?maps=territories&position=${lat},${lng}`
+        );
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+          const territories = data.map((t: any) => t.properties.Name).join(', ');
+
+          new maplibregl.Popup()
+            .setLngLat([lng, lat])
+            .setHTML(`
+              <div style="padding: 8px; max-width: 250px;">
+                <h3 style="margin: 0 0 8px 0; font-weight: bold; color: #2d5a27;">Indigenous Territories</h3>
+                <p style="margin: 0; color: #333;">${territories}</p>
+                <p style="margin: 8px 0 0 0; font-size: 11px; color: #666;">
+                  Data from <a href="https://native-land.ca" target="_blank" style="color: #2d5a27;">Native Land Digital</a>
+                </p>
+              </div>
+            `)
+            .addTo(map.current!);
+        }
+      } catch (error) {
+        console.log('Could not fetch territory data');
+      }
+    });
+
     // Add markers for each film
     films.forEach((film) => {
       const el = document.createElement('div');
@@ -88,27 +135,30 @@ const Map = ({ onLocationClick }: MapProps) => {
       el.style.width = '32px';
       el.style.height = '32px';
       el.style.borderRadius = '50%';
-      el.style.background = 'linear-gradient(135deg, hsl(25 75% 47%), hsl(35 60% 60%))';
+      el.style.background = 'linear-gradient(135deg, #FDFD96, #FFFACD)'; // Baby yellow gradient
       el.style.border = '3px solid white';
       el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
       el.style.cursor = 'pointer';
-      el.style.transition = 'box-shadow 0.2s ease, filter 0.2s ease';
+      el.style.transition = 'box-shadow 0.2s ease, filter 0.2s ease, transform 0.2s ease';
 
       el.addEventListener('mouseenter', () => {
-        el.style.boxShadow = '0 4px 16px rgba(0,0,0,0.4), 0 0 20px rgba(211, 84, 0, 0.6)';
-        el.style.filter = 'brightness(1.2)';
+        el.style.boxShadow = '0 4px 16px rgba(0,0,0,0.4), 0 0 20px rgba(253, 253, 150, 0.8)';
+        el.style.filter = 'brightness(1.1)';
+        el.style.transform = 'scale(1.1)';
       });
 
       el.addEventListener('mouseleave', () => {
         el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
         el.style.filter = 'brightness(1)';
+        el.style.transform = 'scale(1)';
       });
 
       const marker = new maplibregl.Marker({ element: el })
         .setLngLat([film.location.lng, film.location.lat])
         .addTo(map.current!);
 
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent territory popup from showing
         onLocationClick(film);
         map.current?.flyTo({
           center: [film.location.lng, film.location.lat],
@@ -131,6 +181,11 @@ const Map = ({ onLocationClick }: MapProps) => {
   return (
     <div className="relative w-full h-full z-0">
       <div ref={mapContainer} className="absolute inset-0 z-0" />
+      <div className="absolute bottom-4 left-4 z-10 bg-white/90 backdrop-blur-sm rounded-lg p-3 text-xs max-w-xs shadow-lg">
+        <p className="font-semibold text-gray-800 mb-1">Indigenous Territories Map</p>
+        <p className="text-gray-600">Click anywhere on the map to see which Indigenous nations' traditional territories you're viewing.</p>
+        <p className="text-gray-500 mt-1">Data: <a href="https://native-land.ca" target="_blank" rel="noopener noreferrer" className="text-green-700 hover:underline">Native Land Digital</a></p>
+      </div>
       <style>{`
         .maplibregl-map {
           z-index: 1 !important;
@@ -138,6 +193,10 @@ const Map = ({ onLocationClick }: MapProps) => {
         .maplibregl-canvas-container,
         .maplibregl-control-container {
           z-index: 1 !important;
+        }
+        .maplibregl-popup-content {
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
       `}</style>
     </div>
