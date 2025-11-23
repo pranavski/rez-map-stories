@@ -18,10 +18,11 @@ const ThemeFilter = ({ selectedThemes, onThemeToggle, onReset }: ThemeFilterProp
   ).sort();
 
   return (
-    <div className="absolute top-32 left-4 z-10 bg-card rounded-xl shadow-elevated p-4 max-w-sm">
+    <div className="absolute top-6 right-4 z-10 bg-white/90 rounded-xl shadow-elevated p-4 max-w-sm" style={{ borderColor: '#A78BFA' }}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium mb-3"
+        className="flex items-center gap-2 transition-colors font-medium mb-3"
+        style={{ color: '#7C3AED' }}
       >
         <Filter className="w-5 h-5" />
         <span>Filter by Theme</span>
