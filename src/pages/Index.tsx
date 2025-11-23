@@ -1,12 +1,56 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import Map from '@/components/Map';
+import FilmCard from '@/components/FilmCard';
+import ThemeFilter from '@/components/ThemeFilter';
+import FilmList from '@/components/FilmList';
+import { Film } from '@/data/films';
 
 const Index = () => {
+  const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
+  const [selectedThemes, setSelectedThemes] = useState<string[]>([]);
+
+  const handleThemeToggle = (theme: string) => {
+    setSelectedThemes((prev) =>
+      prev.includes(theme)
+        ? prev.filter((t) => t !== theme)
+        : [...prev, theme]
+    );
+  };
+
+  const handleResetFilters = () => {
+    setSelectedThemes([]);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="relative w-full h-screen overflow-hidden">
+      <header className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-background/95 to-transparent p-6 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-2">
+            Indigenous Representation in Film
+          </h1>
+          <p className="text-muted-foreground max-w-3xl">
+            An interactive exploration of Indigenous cinema, connecting films with their territories, 
+            themes, and critical scholarship on settler colonialism, gender, and decolonization.
+          </p>
+        </div>
+      </header>
+
+      <div className="w-full h-full pt-32">
+        <Map onLocationClick={setSelectedFilm} />
       </div>
+
+      <ThemeFilter
+        selectedThemes={selectedThemes}
+        onThemeToggle={handleThemeToggle}
+        onReset={handleResetFilters}
+      />
+
+      <FilmList
+        selectedThemes={selectedThemes}
+        onFilmClick={setSelectedFilm}
+      />
+
+      <FilmCard film={selectedFilm} onClose={() => setSelectedFilm(null)} />
     </div>
   );
 };
