@@ -195,11 +195,6 @@ const Map = ({ onLocationClick }: MapProps) => {
   return (
     <div className="relative w-full h-full z-0">
       <div ref={mapContainer} className="absolute inset-0 z-0" />
-      <div className="absolute bottom-4 left-4 z-10 bg-white/90 backdrop-blur-sm rounded-lg p-3 text-xs max-w-xs shadow-lg">
-        <p className="font-semibold text-gray-800 mb-1">Indigenous Territories Map</p>
-        <p className="text-gray-600">Click anywhere on the map to see which Indigenous nations' traditional territories you're viewing.</p>
-        <p className="text-gray-500 mt-1">Data: <a href="https://native-land.ca" target="_blank" rel="noopener noreferrer" className="text-green-700 hover:underline">Native Land Digital</a></p>
-      </div>
       <style>{`
         .maplibregl-map {
           z-index: 1 !important;
