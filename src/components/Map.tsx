@@ -26,6 +26,14 @@ const Map = ({ onLocationClick }: MapProps) => {
             type: 'vector',
             url: 'https://demotiles.maplibre.org/tiles/tiles.json'
           },
+          'osm-details': {
+            type: 'raster',
+            tiles: [
+              'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+            ],
+            tileSize: 256,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          },
           'native-land-territories': {
             type: 'raster',
             tiles: [
@@ -49,7 +57,15 @@ const Map = ({ onLocationClick }: MapProps) => {
             source: 'land',
             'source-layer': 'countries',
             paint: {
-              'fill-color': '#98D4A1' // Light mint green for land
+              'fill-color': '#C8E6C9' // Very light green base
+            }
+          },
+          {
+            id: 'osm-details-layer',
+            type: 'raster',
+            source: 'osm-details',
+            paint: {
+              'raster-opacity': 0.6 // Blend with green base
             }
           },
           {
@@ -58,8 +74,8 @@ const Map = ({ onLocationClick }: MapProps) => {
             source: 'land',
             'source-layer': 'countries',
             paint: {
-              'line-color': '#7BC47F',
-              'line-width': 1
+              'line-color': '#66BB6A',
+              'line-width': 1.5
             }
           },
           {
@@ -67,7 +83,7 @@ const Map = ({ onLocationClick }: MapProps) => {
             type: 'raster',
             source: 'native-land-territories',
             paint: {
-              'raster-opacity': 0.7
+              'raster-opacity': 0.5
             }
           }
         ],
