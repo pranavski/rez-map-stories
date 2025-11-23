@@ -18,7 +18,7 @@ const ThemeFilter = ({ selectedThemes, onThemeToggle, onReset }: ThemeFilterProp
   ).sort();
 
   return (
-    <div className="absolute top-4 left-4 z-10 bg-card rounded-xl shadow-elevated p-4 max-w-sm">
+    <div className="absolute top-32 left-4 z-10 bg-card rounded-xl shadow-elevated p-4 max-w-sm">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium mb-3"
