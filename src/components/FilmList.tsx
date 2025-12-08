@@ -10,7 +10,7 @@ const FilmList = ({
 }: FilmListProps) => {
   const filteredFilms = selectedThemes.length > 0 ? films.filter(film => film.keyIssues.some(issue => selectedThemes.includes(issue))) : films;
   return <div className="absolute bottom-4 left-4 right-4 z-10 bg-card/95 backdrop-blur-sm rounded-xl shadow-elevated p-4 max-h-48 overflow-y-auto">
-      <h3 className="font-bold text-lg mb-3 text-foreground font-mono bg-orange-200">
+      <h3 className="font-bold text-lg mb-3 font-mono text-popover-foreground bg-primary-foreground">
         Featured Films ({filteredFilms.length})
       </h3>
       <div className="space-y-2">
