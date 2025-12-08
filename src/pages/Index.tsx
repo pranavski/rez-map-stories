@@ -4,32 +4,29 @@ import FilmCard from '@/components/FilmCard';
 import ThemeFilter from '@/components/ThemeFilter';
 import FilmList from '@/components/FilmList';
 import { Film } from '@/data/films';
-
 const Index = () => {
   const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
   const [selectedThemes, setSelectedThemes] = useState<string[]>([]);
-
   const handleThemeToggle = (theme: string) => {
-    setSelectedThemes((prev) =>
-      prev.includes(theme)
-        ? prev.filter((t) => t !== theme)
-        : [...prev, theme]
-    );
+    setSelectedThemes(prev => prev.includes(theme) ? prev.filter(t => t !== theme) : [...prev, theme]);
   };
-
   const handleResetFilters = () => {
     setSelectedThemes([]);
   };
-
-  return (
-    <div className="relative w-full h-screen overflow-hidden">
+  return <div className="relative w-full h-screen overflow-hidden">
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      <header className="absolute top-0 left-0 right-0 z-20 p-6">
+      <header className="absolute top-0 left-0 right-0 z-20 p-6 border-4 border-muted bg-orange-200">
         <div className="max-w-7xl">
-          <h1 className="text-3xl md:text-4xl font-semibold mb-2" style={{ fontFamily: 'Poppins, sans-serif', color: '#8B5CF6' }}>
+          <h1 style={{
+          fontFamily: 'Poppins, sans-serif',
+          color: '#8B5CF6'
+        }} className="text-3xl md:text-4xl font-semibold mb-2 font-mono">
             Indigenous Representation in Film
           </h1>
-          <p className="max-w-3xl text-sm md:text-base" style={{ fontFamily: 'Poppins, sans-serif', color: '#A78BFA' }}>
+          <p style={{
+          fontFamily: 'Poppins, sans-serif',
+          color: '#A78BFA'
+        }} className="max-w-3xl text-sm md:text-base">
             An interactive exploration of Indigenous cinema, connecting films with their territories,
             themes, and critical scholarship on settler colonialism, gender, and decolonization.
           </p>
@@ -40,20 +37,11 @@ const Index = () => {
         <Map onLocationClick={setSelectedFilm} />
       </div>
 
-      <ThemeFilter
-        selectedThemes={selectedThemes}
-        onThemeToggle={handleThemeToggle}
-        onReset={handleResetFilters}
-      />
+      <ThemeFilter selectedThemes={selectedThemes} onThemeToggle={handleThemeToggle} onReset={handleResetFilters} />
 
-      <FilmList
-        selectedThemes={selectedThemes}
-        onFilmClick={setSelectedFilm}
-      />
+      <FilmList selectedThemes={selectedThemes} onFilmClick={setSelectedFilm} />
 
       <FilmCard film={selectedFilm} onClose={() => setSelectedFilm(null)} />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
