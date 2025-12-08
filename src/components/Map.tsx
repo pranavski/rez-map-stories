@@ -90,8 +90,7 @@ const Map = ({ onLocationClick }: MapProps) => {
         glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf'
       },
       center: [-100, 45],
-      zoom: 2.5,
-      projection: 'globe'
+      zoom: 2.5
     });
 
     // Add navigation controls
@@ -102,15 +101,9 @@ const Map = ({ onLocationClick }: MapProps) => {
       'top-right'
     );
 
-    // Set atmosphere/fog effect for globe
+    // Map style loaded handler
     map.current.on('style.load', () => {
-      map.current?.setFog({
-        color: 'rgb(186, 210, 235)', // Light blue atmosphere
-        'high-color': 'rgb(36, 92, 223)', // Upper atmosphere
-        'horizon-blend': 0.02,
-        'space-color': 'rgb(11, 11, 25)', // Dark space
-        'star-intensity': 0.6
-      });
+      console.log('Map style loaded');
     });
 
     // Add click handler for native land territories
