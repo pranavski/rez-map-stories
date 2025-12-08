@@ -14,7 +14,7 @@ const FilmList = ({
         Featured Films ({filteredFilms.length})
       </h3>
       <div className="space-y-2">
-        {filteredFilms.map(film => <button key={film.id} onClick={() => onFilmClick(film)} className="w-full text-left p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-all group">
+        {filteredFilms.map(film => <button key={film.id} onClick={() => onFilmClick(film)} className="w-full text-left p-3 rounded-lg border border-border bg-orange-200 hover:border-primary/50 hover:bg-orange-300 transition-all group">
             <div className="flex items-start gap-3">
               <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" />
               <div className="flex-1 min-w-0">
