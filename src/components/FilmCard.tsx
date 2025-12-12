@@ -45,8 +45,17 @@ const FilmCard = ({ film, onClose }: FilmCardProps) => {
               )}
             </div>
             {film.availableOn && (
-              <div className="mt-2 text-sm text-primary">
-                Available on {film.availableOn}
+              <div className="mt-2 flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Available on</span>
+                <a
+                  href={`https://www.google.com/search?q=watch+${encodeURIComponent(film.title)}+on+${encodeURIComponent(film.availableOn)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors bg-primary/10 px-3 py-1 rounded-full"
+                >
+                  {film.availableOn}
+                  <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
             )}
           </div>
