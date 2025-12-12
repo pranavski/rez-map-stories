@@ -18,7 +18,7 @@ const FilmList = ({
             <div className="flex items-start gap-3">
               <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" />
               <div className="flex-1 min-w-0">
-                <p className="text-foreground group-hover:text-primary transition-colors font-semibold">
+                <p className="transition-colors font-semibold text-earth-brown">
                   {film.title}
                 </p>
                 <p className="text-sm text-muted-foreground truncate">
