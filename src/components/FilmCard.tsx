@@ -51,7 +51,7 @@ const FilmCard = ({ film, onClose }: FilmCardProps) => {
                   href={`https://www.google.com/search?q=watch+${encodeURIComponent(film.title)}+on+${encodeURIComponent(film.availableOn)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors bg-primary/10 px-3 py-1 rounded-full"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-earth-brown hover:text-earth-brown/80 transition-colors bg-earth-brown/10 px-3 py-1 rounded-full"
                 >
                   {film.availableOn}
                   <ExternalLink className="w-3 h-3" />
