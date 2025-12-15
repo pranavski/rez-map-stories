@@ -26,7 +26,7 @@ const Index = () => {
             <h1 style={{
             fontFamily: 'Poppins, sans-serif',
             color: '#8B5CF6'
-          }} className="text-3xl md:text-4xl mb-2 font-mono font-extrabold text-muted-foreground">
+          }} className="text-3xl md:text-4xl mb-2 font-mono font-extrabold text-accent-foreground">
               Indigenous Representation in Film
             </h1>
             <p style={{
