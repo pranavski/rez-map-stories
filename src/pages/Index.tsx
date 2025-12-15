@@ -23,16 +23,10 @@ const Index = () => {
       <header className="absolute top-0 left-0 right-0 z-20 p-6 border-4 border-muted bg-orange-200">
         <div className="flex items-start justify-between">
           <div className="max-w-3xl">
-            <h1 style={{
-            fontFamily: 'Poppins, sans-serif',
-            color: '#8B5CF6'
-          }} className="text-3xl md:text-4xl mb-2 font-mono font-extrabold text-muted-foreground">
+            <h1 style={{ fontFamily: 'Poppins, sans-serif' }} className="text-3xl md:text-4xl mb-2 font-mono font-extrabold text-earth-brown">
               Indigenous Representation in Film
             </h1>
-            <p style={{
-            fontFamily: 'Poppins, sans-serif',
-            color: '#A78BFA'
-          }} className="text-sm md:text-base font-mono text-earth-brown">
+            <p style={{ fontFamily: 'Poppins, sans-serif' }} className="text-sm md:text-base font-mono text-earth-brown">
               An interactive exploration of Indigenous cinema, connecting films with their territories,
               themes, and critical scholarship on settler colonialism, gender, and decolonization.
             </p>
