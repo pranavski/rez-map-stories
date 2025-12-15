@@ -26,21 +26,21 @@ const Index = () => {
             <h1 style={{
             fontFamily: 'Poppins, sans-serif',
             color: '#8B5CF6'
-          }} className="text-3xl md:text-4xl mb-2 font-mono font-extrabold text-yellow-900">
+          }} className="text-3xl md:text-4xl mb-2 font-mono font-extrabold text-muted-foreground">
               Indigenous Representation in Film
             </h1>
             <p style={{
             fontFamily: 'Poppins, sans-serif',
             color: '#A78BFA'
-          }} className="text-sm md:text-base font-mono text-muted-foreground">
+          }} className="text-sm md:text-base font-mono text-earth-brown">
               An interactive exploration of Indigenous cinema, connecting films with their territories,
               themes, and critical scholarship on settler colonialism, gender, and decolonization.
             </p>
           </div>
           
-          <Button onClick={() => setIsSubmissionFormOpen(true)} style={{
+          <Button onClick={() => setIsSubmissionFormOpen(true)} className="bg-purple-500 hover:bg-purple-600 text-white flex items-center gap-2 shrink-0" style={{
           fontFamily: 'Poppins, sans-serif'
-        }} className="text-white flex items-center gap-2 shrink-0 bg-muted-foreground">
+        }}>
             <MessageSquarePlus className="h-4 w-4" />
             <span className="hidden sm:inline">Suggest a Film</span>
           </Button>
